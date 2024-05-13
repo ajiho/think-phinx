@@ -19,10 +19,6 @@ class Create extends Command
     protected function execute(Input $input, Output $output)
     {
         $name = trim($input->getArgument('name'));
-        if (empty($name)) {
-            $this->output->error('The name of the file cannot be empty. Please use CamelCase format.');
-            return;
-        }
         $arguments = ['name' => $name, '--template' => $this->app->get('path.stubs.seed')];
         $this->call('seed:create', $arguments);
     }

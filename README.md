@@ -1,6 +1,6 @@
 # think-phinx
 
-基于phinx封装的一个thinkphp6数据库迁移工具
+基于[phinx](https://book.cakephp.org/phinx)封装的一个thinkphp6数据库迁移工具
 
 设计灵感来自于[wdaglb/thinkphp-migration](https://github.com/wdaglb/thinkphp-migration)
 并在此基础上进行了大量优化
@@ -15,14 +15,16 @@
 - 和tp官方的迁移工具保持相同的命令,无学习成本
 - 相对于tp官方的迁移工具,think-phinx支持多数据库(环境,-e选项)迁移
 - 相对于tp官方的迁移工具,phinx是直接通过composer更新而不是固定死版本,bug修复还有特性支持交给phinx官方去做，think-phinx只做了一个桥梁的作用
-- 集成还在维护的[fakerphp/faker](https://packagist.org/packages/fakerphp/faker)而不是已经被弃用的[fzaninotto/faker](https://packagist.org/packages/fzaninotto/faker)
+- 相对于tp官方的迁移工具,迁移文件模板默认提供和laravel迁移工具一样的`up`和`down`方法
+- 集成`faker`假数据模拟工具,且是还在维护的[fakerphp/faker](https://packagist.org/packages/fakerphp/faker),而不是已经被弃用的[fzaninotto/faker](https://packagist.org/packages/fzaninotto/faker)
 - 原汁原味的phinx,[phinx的官方文档](https://phinx.org/)内容完全可用
 - 相对于`wdaglb/thinkphp-migration`命令的选项不需要两个`--`
 - 相对于`wdaglb/thinkphp-migration`会自动创建文件迁移和填充路径,无需手动创建
 - 相对于`wdaglb/thinkphp-migration`支持thinkphp6.x
 - 相对于`wdaglb/thinkphp-migration`是直接在控制台输出phinx原本的命令信息
 - 和phinx官方的命令选项保持一致,比如命令选项简写
-- 迁移和填充模板默认有提供示例代码,和laravel的迁移模板一样默认提供up和down方法
+- 迁移和填充模板默认有提供示例代码,帮助您快速启航
+
 
 # 安装
 
@@ -180,19 +182,19 @@ php think migrate:rollback
 > 指定执行环境，默认环境根据配置文件可以设置
 
 ~~~
-php think migrate:rollback -e mysql
+php think migrate:rollback -e development
 ~~~
 
 > 要将所有迁移回滚到特定版本，请使用-t参数
 
 ~~~
-php think migrate:rollback -e mysql -t 20230801141644
+php think migrate:rollback -e development -t 20230801141644
 ~~~
 
 > 回滚所有迁移 -t 0
 
 ~~~
-php think migrate:rollback -e mysql -t 0
+php think migrate:rollback -e development -t 0
 ~~~
 
 
