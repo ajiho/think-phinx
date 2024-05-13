@@ -1,0 +1,54 @@
+{
+  "name": "ajiho/think-phinx",
+  "type": "composer-plugin",
+  "description": "Phinx integration for thinkphp6",
+  "scripts": {
+    "test": "ajiho\\phinx\\Test::run"
+  },
+  "keywords": [
+    "thinkphp6",
+    "phinx",
+    "migration",
+    "migrate"
+  ],
+  "homepage": "https://github.com/ajiho/think-phinx",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "ajiho\\phinx\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "ajiho",
+      "email": "lujiahao@88.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "cakephp/core": "~4.3.0",
+    "cakephp/utility": "~4.3.0",
+    "cakephp/datasource": "~4.3.0",
+    "cakephp/database": "~4.3.0",
+    "robmorgan/phinx": "~0.13.0",
+    "topthink/framework": "^6.0",
+    "composer-plugin-api": "^2.3",
+    "fakerphp/faker": "^1.20.0",
+    "ext-json": "*",
+    "ajiho/namespaceify": "^1.0"
+  },
+  "require-dev": {
+    "composer/composer": "^2.3"
+  },
+  "extra": {
+    "think": {
+      "services": [
+        "ajiho\\phinx\\Service"
+      ],
+      "config": {
+        "phinx": "src/config.php"
+      }
+    },
+    "class": "ajiho\\phinx\\Plugin"
+  }
+}

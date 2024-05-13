@@ -1,0 +1,33 @@
+<?php
+declare(strict_types=1);
+
+$namespaceDefinition
+
+use ajiho\phinx\Migrator;
+
+class $className extends Migrator
+{
+    public function up()
+    {
+        $table = $this->table('user', ['engine' => 'INNODB', 'collation' => 'utf8mb4_unicode_ci']);
+        $table->addColumn('username', 'string', ['comment' => '账号', 'limit' => 50])
+            ->addColumn('truename', 'string', ['comment' => '真实姓名', 'limit' => 50, 'null' => false, 'default' => ''])
+            ->addColumn('password', 'string', ['comment' => '密码', 'limit' => 255])
+            ->addColumn('email', 'string', ['comment' => '邮箱', 'limit' => 50])
+            ->addColumn('phone', 'string', ['comment' => '手机号码', 'limit' => 15])
+            ->addColumn('gender', 'enum', ['comment' => '性别', 'values' => ['先生', '女士'], 'null' => false, 'default' => '先生'])
+            ->addColumn('last_ip', 'char', ['comment' => '登录IP', 'limit' => 15])
+            ->addColumn('create_time', 'timestamp', ['comment' => '创建时间', 'default' => 'CURRENT_TIMESTAMP'])
+            ->addColumn('update_time', 'timestamp', ['comment' => '更新时间', 'default' => 'CURRENT_TIMESTAMP'])
+            ->addColumn('delete_time', 'timestamp', ['comment' => '删除时间', 'default' => 'CURRENT_TIMESTAMP'])
+            ->create();
+    }
+
+    public function down()
+    {
+        if ($this->table('user')->exists()) {
+            return;
+        }
+        $this->table('user')->drop()->save();
+    }
+}

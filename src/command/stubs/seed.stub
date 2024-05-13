@@ -1,0 +1,47 @@
+<?php
+declare(strict_types=1);
+
+$namespaceDefinition
+
+use ajiho\phinx\Seeder;
+
+class $className extends Seeder
+{
+    public function run() : void
+    {
+        $data = [];
+
+        for ($i = 0; $i < 100; $i++) {
+
+            $data[] = [
+                'username' => $this->faker->userName,
+                'truename' => $this->faker->name,
+                //使用password_verify('123456', $hash_val)进行密码比对,$hash_val为数据库取出来的password字段
+                'password' => password_hash("123456", PASSWORD_DEFAULT,["cost" => 8]),
+                'email' => $this->faker->unique()->email,
+                'phone' => $this->faker->unique()->phoneNumber,
+                'gender' => $this->faker->randomElement(['先生', '女士']),
+                'last_ip' => $this->faker->ipv4,
+                'create_time' => date('Y-m-d H:i:s'),
+                'update_time' => date('Y-m-d H:i:s')
+            ];
+        }
+
+        // 得到表对象
+        $table = $this->table('user');
+
+        //1.清空表,避免每次插入都重复执行 see:https://book.cakephp.org/phinx/0/en/seeding.html#truncating-tables
+        $table->truncate();
+
+
+        //2.批量填充数据   see:https://book.cakephp.org/phinx/0/en/migrations.html#inserting-data
+        $table->insert($data)
+            ->saveData();
+
+        //3.更新一条数据,方便我们登录测试  see:https://book.cakephp.org/phinx/0/en/migrations.html#creating-an-update-query
+        $tableName = $this->environmentConfig['table_prefix'] . 'user';
+        $this->getQueryBuilder()->update($tableName)->where(['id' => 1])->set('username', 'admin888')->execute();
+        $this->getQueryBuilder()->update($tableName)->where(['id' => 2])->set('username', 'admin222')->execute();
+        $this->getQueryBuilder()->update($tableName)->where(['id' => 3])->set('username', 'admin333')->execute();
+    }
+}
